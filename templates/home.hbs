@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/public/home.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to Your Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="welcome-section">
+            <h2>Hello, {{firstName}} {{lastName}}!</h2>
+            <p>Welcome to your personal dashboard. Here you can track your activities, view recent updates, and more.</p>
+        </section>
+        <section class="info-section">
+            <h3>Recent Updates</h3>
+            <p>Stay tuned for new features and updates!</p>
+        </section>
+        <section class="functionality-section">
+            <h3>Available Functions</h3>
+            <div class="button-container">
+                <button onclick="location.href='/send-email'">Send Email</button>
+                <button onclick="location.href='/view-replies'">View Replies</button>
+                <button onclick="location.href='/schedule-email'">Schedule Email</button>
+                <button onclick="location.href='/email-prompts'">Email Prompts</button>
+                <button onclick="location.href='/user-feedback'">User Feedback</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+    </footer>
+</body>
+</html>

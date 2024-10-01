@@ -1,0 +1,95 @@
+/* Reset some default browser styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #e6f7ff; /* Light pastel blue background */
+}
+
+header {
+    background: #005f73; /* Darker pastel blue */
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 0.5rem;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 1rem;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.welcome-section,
+.info-section,
+.functionality-section {
+    background: #ffffff; /* White background for content sections */
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+h2, h3 {
+    color: #0a9396; /* Calming teal for headings */
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #94d2bd; /* Light pastel green */
+    color: #005f73; /* Darker text color for contrast */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #ee9b00; /* Pastel orange on hover */
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+footer {
+    background: #005f73; /* Match header */
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    position: relative; /* Changed to relative for better footer behavior */
+    bottom: 0;
+}
