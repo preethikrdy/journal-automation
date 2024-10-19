@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Page</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Select a Category and Schedule</h1>
+
+ <!-- Dropdown Menu for Categories -->
+<div class="category-dropdown">
+    <label for="journal-category">Select a Journal Category:</label>
+    <select id="journal-category" onchange="showCustomInput(this.value)">
+    <option value="" disabled selected>Select a category</option>
+    <option value="motivation">Motivation</option>
+    <option value="reflection">Reflection</option>
+    <option value="creativity">Creativity</option>
+    <option value="custom">Custom...</option>
+</select>
+
+    
+    <!-- Custom Input Field -->
+    <input type="text" id="custom-category" placeholder="Enter your category" style="display: none;" />
+</div>
+
+<script>
+    function showCustomInput(value) {
+        const customInput = document.getElementById('custom-category');
+        if (value === 'custom') {
+            customInput.style.display = 'block';
+        } else {
+            customInput.style.display = 'none';
+        }
+    }
+</script>
+
+
+        <h2>Select Days</h2>
+        <!-- Days of the Week -->
+        <div class="days">
+            <button class="day-button" data-day="mon">Mon</button>
+            <button class="day-button" data-day="tue">Tue</button>
+            <button class="day-button" data-day="wed">Wed</button>
+            <button class="day-button" data-day="thu">Thu</button>
+            <button class="day-button" data-day="fri">Fri</button>
+            <button class="day-button" data-day="sat">Sat</button>
+            <button class="day-button" data-day="sun">Sun</button>
+        </div>
+
+        <h2>Select Time</h2>
+        <!-- Time Selector -->
+        <input type="time" id="time-selector" />
+
+        <h2>Your Selections</h2>
+        <div id="selections">
+            <p>Categories Selected: <span id="selected-categories"></span></p>
+            <p>Days Selected: <span id="selected-days"></span></p>
+            <p>Time Selected: <span id="selected-time"></span></p>
+        </div>
+
+        <button id="submit-button">Schedule</button>
+    </div>
+
+    <script>
+        // JavaScript to handle selections
+        const selectedCategories = [];
+        const selectedDays = [];
+        
+        document.querySelectorAll('.day-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const day = button.getAttribute('data-day');
+                if (!selectedDays.includes(day)) {
+                    selectedDays.push(day);
+                    button.classList.toggle('selected');
+                } else {
+                    selectedDays.splice(selectedDays.indexOf(day), 1);
+                    button.classList.toggle('selected');
+                }
+                updateSelections();
+            });
+        });
+
+        document.getElementById('time-selector').addEventListener('input', (event) => {
+            document.getElementById('selected-time').innerText = event.target.value;
+        });
+
+        function updateSelections() {
+            document.getElementById('selected-categories').innerText = selectedCategories.join(', ') || 'None';
+            document.getElementById('selected-days').innerText = selectedDays.join(', ') || 'None';
+        }
+
+        document.getElementById('submit-button').addEventListener('click', () => {
+    const selectedCategory = document.getElementById('journal-category').value;
+    const customCategory = document.getElementById('custom-category').value;
+    const selectedTime = document.getElementById('time-selector').value;
+
+    const scheduleData = {
+        category: selectedCategory === 'custom' ? customCategory : selectedCategory,
+        scheduledDays: selectedDays,
+        scheduledTime: selectedTime,
+        scheduledDate: new Date().toISOString() // Current date, adjust as needed
+    };
+
+    // Send data to server
+    fetch('/schedule', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(scheduleData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error scheduling. Please try again.');
+    });
+});
+
+    </script>
+
+    <style>
+        /* Basic styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .categories, .days {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .category-button, .day-button {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .category-button.selected, .day-button.selected {
+            background-color: #0056b3;
+        }
+        #submit-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+</html>

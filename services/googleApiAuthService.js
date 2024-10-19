@@ -14,7 +14,7 @@ const SCOPES = [
 
 // fetch and store token from files 
 const TOKEN_PATH = path.join(process.cwd(), 'token.json');
-const CREDENTIALS_PATH = path.join(process.cwd(), './services/credentials/credentials.json');
+const CREDENTIALS_PATH = path.join(process.cwd(), './services/credentials.json');
 
 // Read previously authorized credentials from saved file
 

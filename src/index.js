@@ -1,37 +1,81 @@
+const { google } = require('googleapis');
 const authorize = require('../services/googleApiAuthService');
 const { sendEmail, readReplies, getRepliesInThread } = require('../services/gmailApiServices');
 
-async function testing() {
+// Fix for sendEmail declaration conflict
+const sendEmailHelper = async (auth, recipient, prompt, subject = 'Test Email') => {
+    const gmail = google.gmail({ version: 'v1', auth });
+
+    console.log('Sending email to:', recipient);
+
+  
+    const rawMessage = [
+      `To: <${recipient}>`,
+      `Subject: ${subject}`,
+      'Content-Type: text/plain; charset=utf-8',
+      '',
+      prompt,
+    ].join('\n');
+  
+    const encodedMessage = Buffer.from(rawMessage)
+      .toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+  
     try {
-        let auth = await authorize();
-
-        // Send an email and get the threadId
-        let message = 'TO: reddy.preethu@gmail.com\n' +  // Replace with actual recipient
-            'Subject: Test Email\n' +
-            'Content-Type: text/html; charset=utf-8\n\n' +
-            'Hello World!';
-        
-       // const threadId = await sendEmail(auth, message);
-        //console.log(`Email sent in thread: ${threadId}`);
-
-        // Wait for some time to get replies (you can adjust this as needed)
-
-      //  Now check for replies in the thread
-        const replies = await getRepliesInThread(auth, '19244201a4d1144c');
-        if (replies && replies.length > 0) {
-            console.log('Replies received:');
-            replies.forEach((reply, index) => {
-                console.log(`Reply #${index + 1} from ${reply.from}:`);
-                console.log(reply.body);
-            });
-        } else {
-            console.log('No replies found.');
-        }
+      const result = await gmail.users.messages.send({
+        userId: 'me',
+        requestBody: {
+          raw: encodedMessage,
+        },
+      });
+      console.log('Email sent successfully!');
+      return result.data.threadId;  // Return thread ID if needed for replies
     } catch (error) {
-        console.error(error);
+      console.error('Error sending email:', error);
+      throw error;
     }
+  };
+  
+
+const sendPrompt = async (recipient, prompt, subject) => {
+    try {
+      const auth = await authorize();
+      const threadId = await sendEmailHelper(auth, recipient, prompt, subject);
+      console.log(`Email sent in thread: ${threadId}`);
+      return threadId;
+    } catch (error) {
+      console.error('Error sending email:', error);
+      throw new Error('Failed to send email');
+    }
+  };
+  
+
+async function retrieveReplies(threadId) {
+  try {
+    const auth = await authorize();
+    const replies = await getRepliesInThread(auth, threadId);
+
+    if (replies && replies.length > 0) {
+      //console.log('Replies received:');
+      replies.forEach((reply, index) => {
+        console.log(`Reply #${index + 1} from ${reply.from}:`);
+        console.log(reply.body);
+      });
+    } else {
+      console.log('No replies found.');
+    }
+    return replies;
+  } catch (error) {
+    console.error('Error retrieving replies:', error);
+    throw new Error('Failed to retrieve replies');
+  }
 }
 
-testing();
-
-
+module.exports = {
+    sendPrompt,
+   retrieveReplies,
+    getRepliesInThread,
+    // other exports if necessary
+};

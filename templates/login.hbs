@@ -4,29 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/public/login.css">
+    <style>
+        /* General page layout */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+        }
 
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Form section layout */
+        .form-section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #888;
+        }
+
+        /* Links */
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Login to Your Account</h1>
+        <h1>Jot!</h1>
     </header>
     <main>
         <section class="form-section">
             <form action="/login" method="post">
-            <div class="form-group">
-                <input type="text" name="userName" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Password">
-            </div>
-            <input type="submit">
+                <div class="form-group">
+                    <input type="text" name="userName" placeholder="Username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="submit" value="Submit">
+                </div>
             </form>
             <p>Don't have an account? <a href="/signup">Sign up here</a></p>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 PKR Tech. All rights reserved.</p>
+        <p>&copy; Byte Sized Baddies. All rights reserved.</p>
     </footer>
 </body>
 </html>

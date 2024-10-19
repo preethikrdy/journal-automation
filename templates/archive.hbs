@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Prompts</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #D2B48C; /* Corkboard color */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .sticky-note {
+            background-color: #FFFACD; /* Sticky note yellow */
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #FFD700; /* Golden border for a sticky note feel */
+            border-radius: 8px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            overflow: hidden;
+        }
+
+        .sticky-note:hover {
+            transform: scale(1.05);
+        }
+
+        .sticky-note.expanded {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .sticky-note-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .sticky-note-content {
+            max-height: 80px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .sticky-note.expanded .sticky-note-content {
+            max-height: 400px;
+        }
+
+        .toggle-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: #F0E68C; /* Button color to match sticky note */
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Example journal prompt sticky notes -->
+        <div class="sticky-note" id="note-1" onclick="toggleExpand(1)">
+            <div class="sticky-note-header">What are you grateful for today?</div>
+            <div class="sticky-note-content">Today, I’m grateful for the support of my friends and family who helped me through a difficult week...</div>
+            <button class="toggle-button">Expand</button>
+        </div>
+        <div class="sticky-note" id="note-2" onclick="toggleExpand(2)">
+            <div class="sticky-note-header">What is your biggest goal right now?</div>
+            <div class="sticky-note-content">My biggest goal is to finish my personal project by the end of the month. It’s been a challenging journey...</div>
+            <button class="toggle-button">Expand</button>
+        </div>
+        <div class="sticky-note" id="note-3" onclick="toggleExpand(3)">
+            <div class="sticky-note-header">What made you smile today?</div>
+            <div class="sticky-note-content">I smiled when I saw my dog run excitedly to greet me as I came home. It’s the small moments...</div>
+            <button class="toggle-button">Expand</button>
+        </div>
+        <div class="sticky-note" id="note-4" onclick="toggleExpand(4)">
+            <div class="sticky-note-header">Describe a challenge you're facing.</div>
+            <div class="sticky-note-content">I’m facing a challenge at work with a tight deadline for an important project. It’s been tough managing the stress, but...</div>
+            <button class="toggle-button">Expand</button>
+        </div>
+        <div class="sticky-note" id="note-5" onclick="toggleExpand(5)">
+            <div class="sticky-note-header">How do you feel right now?</div>
+            <div class="sticky-note-content">Right now, I feel a mix of excitement and nervousness as I look ahead at what’s coming next in my career...</div>
+            <button class="toggle-button">Expand</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(index) {
+            var note = document.getElementById('note-' + index);
+            note.classList.toggle('expanded');
+        }
+    </script>
+
+</body>
+</html>
+
